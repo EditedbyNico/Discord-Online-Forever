@@ -1,11 +1,23 @@
-const Eris = require("eris");
+const express = require("express"); 
+const app = express();
 const keep_alive = require('./keep_alive.js')
 
-// Replace TOKEN with your bot account's token
-const bot = new Eris(process.env.token);
+app.listen(3000, () => {
+  console.log("Project is running!");
+})
 
-bot.on("error", (err) => {
-  console.error(err); // or your preferred logger
-});
+app.get("/", (req, res) => {
+  res.send("Hello world!");
+})
 
-bot.connect(); // Get the bot to connect to Discord
+const Discord = require("discord.js");
+const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES"]});
+
+client.on("message", message => {
+  if(message.content === "ping") {
+    message.channel.send("pong")
+  }
+})
+
+client.login(process.env.token); 
+**index.js**
